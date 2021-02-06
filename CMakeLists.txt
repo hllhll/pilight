@@ -313,54 +313,29 @@ else()
 	message(STATUS "Looking for libmbedx509 - found (${CMAKE_MBEDX509_LIBS_INIT})")
 endif()
 
-if(${CMAKE_SYSTEM_PROCESSOR} MATCHES "^aarch64")
-	find_program(CMAKE_LUA_LIBS_INIT
-		NAME lua5.1
-		PATHS
-		${CROSS_COMPILE_LIBS}
-		/usr/bin
-		/usr/lib
-		/usr/lib32
-		/usr/lib64
-		/usr/lib/i386-linux-gnu
-		/usr/lib/x86_64-linux-gnu
-		/usr/local/lib
-		/usr/local/lib32
-		/usr/local/lib64
-		/usr/lib/arm-linux-gnueabi
-		/usr/lib/arm-linux-gnueabihf
-		/usr/lib/aarch64-linux-gnu
-	NO_DEFAULT_PATH)
+find_library(CMAKE_LUA_LIBS_INIT
+	NAME luajit-5.1
+	PATHS
+	${CROSS_COMPILE_LIBS}
+	/usr/lib
+	/usr/lib32
+	/usr/lib64
+	/usr/lib/i386-linux-gnu
+	/usr/lib/x86_64-linux-gnu
+	/usr/local/lib
+	/usr/local/lib32
+	/usr/local/lib64
+	/usr/lib/arm-linux-gnueabi
+	/usr/lib/arm-linux-gnueabihf
+	/usr/lib/aarch64-linux-gnu
+NO_DEFAULT_PATH)
 
-	if(${CMAKE_LUA_LIBS_INIT} MATCHES "CMAKE_LUA_LIBS_INIT-NOTFOUND")
-		message(FATAL_ERROR "Looking for libluajit (lua5.1) - not found")
-	else()
-		message(STATUS "Looking for libluajit (lua5.1) - found (${CMAKE_LUA_LIBS_INIT})")
-	endif()
+if(${CMAKE_LUA_LIBS_INIT} MATCHES "CMAKE_LUA_LIBS_INIT-NOTFOUND")
+	message(FATAL_ERROR "Looking for libluajit (luajit-5.1) - not found")
 else()
-	find_library(CMAKE_LUA_LIBS_INIT
-		NAME luajit-5.1
-		PATHS
-		${CROSS_COMPILE_LIBS}
-		/usr/lib
-		/usr/lib32
-		/usr/lib64
-		/usr/lib/i386-linux-gnu
-		/usr/lib/x86_64-linux-gnu
-		/usr/local/lib
-		/usr/local/lib32
-		/usr/local/lib64
-		/usr/lib/arm-linux-gnueabi
-		/usr/lib/arm-linux-gnueabihf
-		/usr/lib/aarch64-linux-gnu
-	NO_DEFAULT_PATH)
-
-	if(${CMAKE_LUA_LIBS_INIT} MATCHES "CMAKE_LUA_LIBS_INIT-NOTFOUND")
-		message(FATAL_ERROR "Looking for libluajit (luajit-5.1) - not found")
-	else()
-		message(STATUS "Looking for libluajit (luajit-5.1) - found (${CMAKE_LUA_LIBS_INIT})")
-	endif()
+	message(STATUS "Looking for libluajit (luajit-5.1) - found (${CMAKE_LUA_LIBS_INIT})")
 endif()
+
 
 include_directories(${PROJECT_SOURCE_DIR}/inc)
 include_directories(${PROJECT_SOURCE_DIR}/libs/libuv)
