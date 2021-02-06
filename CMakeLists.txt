@@ -314,10 +314,11 @@ else()
 endif()
 
 if(${CMAKE_SYSTEM_PROCESSOR} MATCHES "^aarch64")
-	find_library(CMAKE_LUA_LIBS_INIT
+	find_program(CMAKE_LUA_LIBS_INIT
 		NAME lua5.1
 		PATHS
 		${CROSS_COMPILE_LIBS}
+		/usr/bin
 		/usr/lib
 		/usr/lib32
 		/usr/lib64
@@ -332,9 +333,9 @@ if(${CMAKE_SYSTEM_PROCESSOR} MATCHES "^aarch64")
 	NO_DEFAULT_PATH)
 
 	if(${CMAKE_LUA_LIBS_INIT} MATCHES "CMAKE_LUA_LIBS_INIT-NOTFOUND")
-		message(FATAL_ERROR "Looking for libluajit - not found")
+		message(FATAL_ERROR "Looking for libluajit (lua5.1) - not found")
 	else()
-		message(STATUS "Looking for libluajit - found (${CMAKE_LUA_LIBS_INIT})")
+		message(STATUS "Looking for libluajit (lua5.1) - found (${CMAKE_LUA_LIBS_INIT})")
 	endif()
 else()
 	find_library(CMAKE_LUA_LIBS_INIT
@@ -355,9 +356,9 @@ else()
 	NO_DEFAULT_PATH)
 
 	if(${CMAKE_LUA_LIBS_INIT} MATCHES "CMAKE_LUA_LIBS_INIT-NOTFOUND")
-		message(FATAL_ERROR "Looking for libluajit - not found")
+		message(FATAL_ERROR "Looking for libluajit (luajit-5.1) - not found")
 	else()
-		message(STATUS "Looking for libluajit - found (${CMAKE_LUA_LIBS_INIT})")
+		message(STATUS "Looking for libluajit (luajit-5.1) - found (${CMAKE_LUA_LIBS_INIT})")
 	endif()
 endif()
 
